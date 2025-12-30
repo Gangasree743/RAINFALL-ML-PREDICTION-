@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
-import pickle
+import joblib
 import warnings
 warnings.filterwarnings('ignore')
 
@@ -13,14 +13,15 @@ st.markdown("Predict rainfall using Machine Learning")
 
 # Load models and scaler
 try:
-    with open('RF_model.pkl', 'rb') as f:
-        rf_model = pickle.load(f)
-    with open('scaler.pkl', 'rb') as f:
-        scaler = pickle.load(f)
+    rf_model = joblib.load('RF_model.pkl')
+    scaler = joblib.load('scaler.pkl')
     model_loaded = True
 except FileNotFoundError:
     model_loaded = False
     st.error("❌ Models not found!")
+except Exception as e:
+    model_loaded = False
+    st.error(f"❌ Error loading models: {str(e)}")
     st.markdown("""
     ### 🔴 Action Required:
     
