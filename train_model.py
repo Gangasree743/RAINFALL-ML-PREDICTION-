@@ -5,7 +5,7 @@ Run this script once to generate RF_model.pkl and scaler.pkl
 
 import pandas as pd
 import numpy as np
-import pickle
+import joblib
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder, StandardScaler
 from sklearn.feature_selection import SelectKBest, f_regression
@@ -80,12 +80,10 @@ print(f"   • Accuracy: {accuracy}%")
 
 # Save Models
 print("\n💾 Saving models...")
-with open('RF_model.pkl', 'wb') as f:
-    pickle.dump(rf_model, f)
+joblib.dump(rf_model, 'RF_model.pkl')
 print("✓ RF_model.pkl saved")
 
-with open('scaler.pkl', 'wb') as f:
-    pickle.dump(scaler, f)
+joblib.dump(scaler, 'scaler.pkl')
 print("✓ scaler.pkl saved")
 
 print("\n✅ Training Complete! Models are ready for deployment.")
